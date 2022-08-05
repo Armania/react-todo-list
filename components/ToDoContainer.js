@@ -1,7 +1,7 @@
 import React from 'react';
-import { v4 as uuidv4 } from "uuid";
-import Header from "./Header"
-import InputToDo from "./InputToDo"
+import { v4 as uuidv4 } from 'uuid';
+import Header from './Header';
+import InputToDo from './InputToDo';
 import ToDoList from './ToDoList';
 
 class TodoContainer extends React.Component {
@@ -24,65 +24,60 @@ class TodoContainer extends React.Component {
       },
     ],
   };
-  handleChange = id => {
-    //console.log("clicked", id);
-    this.setState(prevState => ({
-      todos: prevState.todos.map(todo => {
+  handleChange = (id) => {
+    this.setState((prevState) => ({
+      todos: prevState.todos.map((todo) => {
         if (todo.id === id) {
-          /*return {
-            ...todo,
-            completed = !todo.completed,
-          }*/
-          todo.completed = !todo.completed
+          todo.completed = !todo.completed;
         }
         return todo;
       }),
-    }))
+    }));
   };
-  delTodo = id => {
-    console.log("deleted", id);
+  delTodo = (id) => {
+    console.log('deleted', id);
     this.setState({
       todos: [
-        ...this.state.todos.filter(todo => {
+        ...this.state.todos.filter((todo) => {
           return todo.id !== id;
-        })
-      ]
+        }),
+      ],
     });
   };
-  addTodoItem = title => {
+  addTodoItem = (title) => {
     console.log(title);
     const newTodo = {
       id: uuidv4(),
-      "title": title,
-      completed: false
+      title: title,
+      completed: false,
     };
     this.setState({
-      todos: [...this.state.todos, newTodo]
+      todos: [...this.state.todos, newTodo],
     });
   };
   setUpdate = (updatedTitle, id) => {
-    console.log(updatedTitle, id)
+    console.log(updatedTitle, id);
     this.setState({
-      todos: this.state.todos.map(todo => {
+      todos: this.state.todos.map((todo) => {
         if (todo.id === id) {
-          todo.title = updatedTitle
+          todo.title = updatedTitle;
         }
-        return todo
+        return todo;
       }),
-    })
-  }
+    });
+  };
 
   render() {
     return (
       <>
         <Header />
         <InputToDo addTodoProps={this.addTodoItem} />
-        <ToDoList 
-              todos={this.state.todos} 
-              handleChangeProps={this.handleChange} 
-              deleteTodoProps={this.delTodo}
-              setUpdate={this.setUpdate}
-            />
+        <ToDoList
+          todos={this.state.todos}
+          handleChangeProps={this.handleChange}
+          deleteTodoProps={this.delTodo}
+          setUpdate={this.setUpdate}
+        />
       </>
     );
   }
